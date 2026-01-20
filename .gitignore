@@ -1,0 +1,11 @@
+# Ignorar scripts específicos
+Lista01/img_sample.py
+Lista01/main.py
+Lista02/main.py
+Lista03/main.py
+
+# Ignorar pastas de figuras
+Lista01/fig/
+Lista02/fig/
+
+main2.py
