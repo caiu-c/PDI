@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 path_input = r'C:\cod_mestrado\pdi\BancoImagens_TomCinza'
 path_output = r'C:\cod_mestrado\pdi\Agora_vai\Lista02\Q20\results'
 
+# Criação do diretório de saída caso não exista
 if not os.path.exists(path_output):
     os.makedirs(path_output)
 
@@ -30,7 +31,7 @@ def filter_band(img, type_op='reject', d0=60, w=20, n=2):
     
     D = get_distance_matrix(img.shape)
     
-    # Butterworth Band-Reject Formula
+    # Fórmula do filtro Butterworth Band-Reject
     # Hbr = 1 / (1 + ( (D*W) / (D^2 - D0^2) )^(2n))
     # Evitar divisão por zero onde D == d0
     numerator = D * w
@@ -90,6 +91,7 @@ for file in files:
             
         plt.tight_layout(rect=[0, 0.03, 1, 0.95])
         
+        # Salvamento da imagem
         nome_saida = f'q20_{op}_{file}.png'
         plt.savefig(os.path.join(path_output, nome_saida), dpi=300, bbox_inches='tight')
         plt.close()

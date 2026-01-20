@@ -3,15 +3,16 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-# 1. Configuracao de caminhos
+# 1. Configuração de caminhos
 path_input = r'C:\cod_mestrado\pdi\BancoImagens_TomCinza'
 path_output = r'C:\cod_mestrado\pdi\Agora_vai\Lista02\Q18\results'
 
+# Criação do diretório de saída caso não exista
 if not os.path.exists(path_output):
     os.makedirs(path_output)
 
 def get_distance_matrix(shape):
-    """Calcula a matriz de distancias D(u,v) a partir do centro do espectro."""
+    """Calcula a matriz de distâncias D(u,v) a partir do centro do espectro."""
     M, N = shape
     u = np.arange(M)
     v = np.arange(N)
@@ -21,14 +22,14 @@ def get_distance_matrix(shape):
     return np.sqrt((u - center_u)**2 + (v - center_v)**2)
 
 def filter_freq(img, type_filter='ideal', d0=30, n=2):
-    """Aplica filtros passa-baixa no dominio da frequencia."""
-    # FFT e Centralizacao
+    """Aplica filtros passa-baixa no domínio da frequência."""
+    # FFT e Centralização
     f = np.fft.fft2(img)
     fshift = np.fft.fftshift(f)
     
     D = get_distance_matrix(img.shape)
     
-    # Selecao do Filtro H(u,v)
+    # Seleção do Filtro H(u,v)
     if type_filter == 'ideal':
         H = (D <= d0).astype(float)
     elif type_filter == 'butterworth':
@@ -51,17 +52,16 @@ for file in files:
     if img is None: continue
 
     filters = ['ideal', 'butterworth', 'gaussian']
-    d0 = 40  # Frequencia de corte
+    d0 = 40  # Frequência de corte
     
     for f_type in filters:
         f_shift, H, res_shift, img_back = filter_freq(img, f_type, d0)
         
-        # Escala logaritmica para melhor visualizacao do espectro
+        # Escala logarítmica para melhor visualização do espectro
         spec_orig = np.log(1 + np.abs(f_shift))
         spec_res = np.log(1 + np.abs(res_shift))
         
-        # AJUSTE DA FIGURA: Aumentamos a altura (de 4 para 6) 
-        # para acomodar os titulos sem cortes
+        # Ajuste da figura: Aumento da altura para acomodar os títulos sem cortes
         plt.figure(figsize=(20, 6))
         
         titles = [
@@ -76,15 +76,15 @@ for file in files:
         for i in range(5):
             plt.subplot(1, 5, i+1)
             plt.imshow(images[i], cmap='gray')
-            plt.title(titles[i], fontsize=12, pad=10) # Pad adiciona espaco ao titulo
+            plt.title(titles[i], fontsize=12, pad=10) # Pad adiciona espaço ao título
             plt.axis('off')
             
-        # O parametro rect garante que o layout nao encoste no topo da imagem salva
+        # O parâmetro rect garante que o layout não encoste no topo da imagem salva
         plt.tight_layout(rect=[0, 0.03, 1, 0.95])
         
-        # Salvamento
+        # Salvamento da imagem
         nome_saida = f'q18_{f_type}_{file}.png'
         plt.savefig(os.path.join(path_output, nome_saida), dpi=300, bbox_inches='tight')
         plt.close()
 
-print("Questao 18 concluida com sucesso!")
+print("Questão 18 concluída com sucesso!")

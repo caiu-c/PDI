@@ -8,9 +8,11 @@ import time
 path_input = r'C:\cod_mestrado\pdi\BancoImagens_TomCinza'
 path_output = r'C:\cod_mestrado\pdi\Agora_vai\Lista02\Q21\results'
 
+# Criação do diretório de saída caso não exista
 if not os.path.exists(path_output):
     os.makedirs(path_output)
 
+# Listando arquivos de imagem
 files = [f for f in os.listdir(path_input) if f.lower().endswith(('.png', '.jpg', '.tif'))]
 
 for file in files:

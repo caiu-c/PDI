@@ -13,11 +13,11 @@ def rastreamento_caio_com_captura():
     azul_baixo = np.array([100, 150, 20])
     azul_alto = np.array([140, 255, 255])
 
-    # 3. Inicializacao da captura
+    # 3. Inicialização da captura
     cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
     if not cap.isOpened():
-        print("Erro: Nao foi possivel acessar a camera.")
+        print("Erro: Não foi possível acessar a câmera.")
         return
 
     print("Rastreamento e Captura iniciados (Fotos a cada 3s). Pressione 'q' para sair.")
@@ -33,7 +33,7 @@ def rastreamento_caio_com_captura():
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, azul_baixo, azul_alto)
         
-        # Limpeza morfologica reforçada
+        # Limpeza morfológica reforçada
         kernel = np.ones((5,5), np.uint8)
         mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
         mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
@@ -72,7 +72,7 @@ def rastreamento_caio_com_captura():
                             
                             # Desenho do Centroide e Texto
                             cv2.circle(frame, (cx, cy), 5, (0, 0, 255), -1)
-                            cv2.putText(frame, "Garafa termica azul: Caio Cavalcanti", (cx - 50, cy - 20),
+                            cv2.putText(frame, "Garrafa termica azul: Caio Cavalcanti", (cx - 50, cy - 20),
                                         cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
                             cv2.putText(frame, f"Centro: ({cx}, {cy})", (cx - 50, cy + 30),
                                         cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
@@ -87,6 +87,7 @@ def rastreamento_caio_com_captura():
             print(f"Foto salva: {nome_foto}")
             ultima_captura = tempo_atual
 
+        # Exibição da captura
         cv2.imshow("Rastreamento e Captura - Lista 02", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'): break
 

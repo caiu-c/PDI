@@ -2,12 +2,13 @@ import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import pywt # Necessário: pip install PyWavelets
+import pywt  # Necessário: pip install PyWavelets
 
 # 1. Configuração de caminhos
 path_input = r'C:\cod_mestrado\pdi\BancoImagens_TomCinza'
 path_output = r'C:\cod_mestrado\pdi\Agora_vai\Lista02\Q22\results'
 
+# Criação do diretório de saída caso não exista
 if not os.path.exists(path_output):
     os.makedirs(path_output)
 
@@ -25,6 +26,7 @@ def organizar_wavelet(coeffs):
         LL = np.vstack((top, bottom))
     return LL
 
+# Listando os arquivos de imagem
 files = [f for f in os.listdir(path_input) if f.lower().endswith(('.png', '.jpg', '.tif'))]
 
 for file in files:

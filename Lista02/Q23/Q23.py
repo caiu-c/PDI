@@ -8,10 +8,10 @@ input_files = [
     r'C:\cod_mestrado\pdi\Agora_vai\Lista02\webcam-toy-photo2.jpg',
     r'C:\cod_mestrado\pdi\Agora_vai\Lista02\webcam-toy-photo3.jpg',
     r'C:\cod_mestrado\pdi\Agora_vai\Lista02\webcam-toy-photo4.jpg',
-
 ]
 path_output = r'C:\cod_mestrado\pdi\Agora_vai\Lista02\Q23\results'
 
+# Criação do diretório de saída caso não exista
 if not os.path.exists(path_output):
     os.makedirs(path_output)
 
@@ -36,6 +36,7 @@ def detect_skin(image):
 
     return res_hsv, res_ycrcb
 
+# Processamento das imagens
 for file_path in input_files:
     if not os.path.exists(file_path):
         print(f"Arquivo não encontrado: {file_path}")
@@ -45,11 +46,12 @@ for file_path in input_files:
     if img is None: continue
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
+    # Detecção de pele nos dois modelos
     skin_hsv, skin_ycrcb = detect_skin(img)
     skin_hsv_rgb = cv2.cvtColor(skin_hsv, cv2.COLOR_BGR2RGB)
     skin_ycrcb_rgb = cv2.cvtColor(skin_ycrcb, cv2.COLOR_BGR2RGB)
 
-    # Plotagem Vertical
+    # Plotagem vertical
     plt.figure(figsize=(10, 15))
     
     plt.subplot(3, 1, 1)

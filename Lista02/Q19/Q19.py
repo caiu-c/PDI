@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 path_input = r'C:\cod_mestrado\pdi\BancoImagens_TomCinza'
 path_output = r'C:\cod_mestrado\pdi\Agora_vai\Lista02\Q19\results'
 
+# Criação do diretório de saída caso não exista
 if not os.path.exists(path_output):
     os.makedirs(path_output)
 
@@ -88,6 +89,7 @@ for file in files:
             
         plt.tight_layout(rect=[0, 0.03, 1, 0.95])
         
+        # Salvamento da imagem
         nome_saida = f'q19_passa_alta_{f_type}_{file}.png'
         plt.savefig(os.path.join(path_output, nome_saida), dpi=300, bbox_inches='tight')
         plt.close()
